@@ -1,0 +1,28 @@
+<div class="toast-container">
+
+  <div
+    *ngFor="let toast of toasts"
+    class="toast"
+    [ngClass]="toast.type"
+  >
+
+    <i
+      *ngIf="toast.type === 'success'"
+      class="fa-solid fa-circle-check"
+    ></i>
+
+    <i
+      *ngIf="toast.type === 'error'"
+      class="fa-solid fa-circle-xmark"
+    ></i>
+
+    <i
+      *ngIf="toast.type === 'warning'"
+      class="fa-solid fa-triangle-exclamation"
+    ></i>
+
+    <span>{{ toast.message }}</span>
+
+  </div>
+
+</div>

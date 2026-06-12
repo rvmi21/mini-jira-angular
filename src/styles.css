@@ -1,1 +1,716 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Global App Theme ===== */
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --danger: #ef4444;
+}
+
+/* Base reset */
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* Smooth rendering */
+* {
+  box-sizing: border-box;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Reusable UI Classes ===== */
+
+/* Card */
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4;
+}
+
+/* Button primary */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+/* Input */
+.input {
+  @apply w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Layout container */
+.container-app {
+  @apply max-w-6xl mx-auto p-6;
+}
+
+/* Page title */
+.page-title {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.table-wrapper {
+  @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4;
+}
+
+.table-title {
+  @apply text-lg font-semibold mb-4;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* Header */
+.table thead tr {
+  @apply text-gray-500 text-sm border-b;
+}
+
+.table th {
+  @apply text-left py-3 font-medium;
+}
+
+/* Rows */
+.table tbody tr {
+  @apply border-b transition;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Cells */
+.table td {
+  @apply py-3 text-sm;
+}
+
+.table td.title {
+  @apply font-medium text-gray-800;
+}
+
+.table td.muted {
+  @apply text-gray-500;
+}
+
+/* Action column */
+.table td.actions {
+  text-align: right;
+}
+
+.table-link {
+  @apply text-blue-600 hover:underline cursor-pointer text-sm;
+}
+
+/*****----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* =========================
+   STRONG DATA TABLE SYSTEM
+========================= */
+
+.table-wrapper {
+  @apply bg-white border border-gray-200 rounded-lg;
+  overflow: hidden;
+}
+
+/* Title */
+.table-title {
+  @apply text-lg font-semibold px-4 py-3 border-b bg-gray-50;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* Header (very defined) */
+.table thead {
+  background-color: #f3f4f6;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Rows */
+.table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Cells */
+.table td {
+  padding: 14px 16px;
+  color: #111827;
+}
+
+/* Strong first column (name) */
+.table td.title {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Secondary text */
+.table td.muted {
+  color: #6b7280;
+}
+
+/* Action column */
+.table td.actions {
+  text-align: right;
+}
+
+/* Strong action button feel */
+.table-link {
+  color: #2563eb;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.table-link:hover {
+  text-decoration: underline;
+}
+
+/*bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb*/
+
+/* =========================
+   BUTTON SYSTEM (SaaS STYLE)
+========================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px 14px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* SECONDARY BUTTON */
+.btn-secondary {
+  background-color: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* DANGER BUTTON */
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+/* GHOST BUTTON (very SaaS-like) */
+.btn-ghost {
+  background-color: transparent;
+  color: #374151;
+}
+
+.btn-ghost:hover {
+  background-color: #f3f4f6;
+}
+
+/* DISABLED STATE */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/*wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww*/
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.task-creator {
+  display: flex;
+  gap: 12px;
+  width: 450px;
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.kanban-column {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 18px;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.todo-column .column-header {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.progress-column .column-header {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.done-column .column-header {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.task-count {
+  background: rgba(255,255,255,.8);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.task-list {
+  padding: 16px;
+}
+
+.task-card {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  padding: 14px;
+
+  margin-bottom: 12px;
+
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,.08);
+}
+
+/*dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at top right,
+    rgba(37, 99, 235, .08),
+    transparent 400px),
+    #f8fafc;
+
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 32px;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.05),
+    0 2px 8px rgba(0,0,0,.04);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  color: #6b7280;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.auth-button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15, 23, 42, .65);
+
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.task-dialog {
+  width: 750px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.25);
+
+  animation: pop .2s ease;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 28px;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.dialog-header span {
+  color: #6b7280;
+}
+
+.dialog-close {
+  border: none;
+  background: #f3f4f6;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.dialog-content {
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  padding: 14px;
+}
+
+.field textarea {
+  min-height: 140px;
+}
+
+.priority-row {
+  display: flex;
+  gap: 12px;
+}
+
+.priority {
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+}
+
+.low {
+  background: #dcfce7;
+}
+
+.medium {
+  background: #fef3c7;
+}
+
+.high {
+  background: #fee2e2;
+}
+
+.dialog-footer {
+  padding: 24px 28px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  border-top: 1px solid #ececec;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.low.active {
+  background: #bbf7d0;
+  border-color: #16a34a;
+}
+
+.medium.active {
+  background: #fde68a;
+  border-color: #d97706;
+}
+
+.high.active {
+  background: #fecaca;
+  border-color: #dc2626;
+}
+
+.badge {
+  font-size: 12px;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* priority colors */
+.low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.high {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.empty-state {
+  padding: 12px;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+
+  text-align: center;
+
+  border: 1px dashed #e5e7eb;
+
+  border-radius: 12px;
+}
+
+.task-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+.cdk-drag-preview {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+
+/*jirq feeels*/
+
+.kanban-column {
+  background: #f9fafb;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  padding: 12px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 600;
+
+  margin-bottom: 10px;
+}
+
+.task-count {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+
+  border: none;
+
+  padding: 12px 18px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: .15s ease;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.dialog-footer {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 24px 28px;
+
+  border-top: 1px solid #ececec;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 12px;
+}
+

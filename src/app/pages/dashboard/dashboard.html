@@ -1,0 +1,122 @@
+<div class="bg-white rounded-xl shadow-sm border p-4">
+
+  <h2 class="text-lg font-semibold mb-4">Your Projects</h2>
+  <button
+    class="btn btn-primary"
+    (click)="openProjectModal()"
+  >
+    + New Project
+  </button>
+  <table class="table">
+
+    <!-- Header -->
+    <thead>
+    <tr class="text-gray-500 text-sm border-b">
+      <th class="py-2">Project Name</th>
+      <th class="py-2">Description</th>
+      <th class="py-2 text-right">Action</th>
+    </tr>
+    </thead>
+
+    <!-- Body -->
+    <tbody>
+
+    <tr
+      *ngFor="let project of projects$ | async"
+      class="border-b hover:bg-gray-50 transition cursor-pointer"
+      (click)="openProject(project.id)"
+    >
+
+      <td class="py-3 font-medium text-gray-800">
+        {{ project.name }}
+      </td>
+
+      <td class="py-3 text-gray-500 text-sm">
+        {{ project.description }}
+      </td>
+
+      <td class="py-3 text-right">
+        <button class="btn btn-primary">
+          Open →
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div
+  *ngIf="showProjectModal"
+  class="dialog-backdrop"
+  (click)="closeProjectModal()"
+>
+
+  <div
+    class="task-dialog"
+    (click)="$event.stopPropagation()"
+  >
+
+    <div class="dialog-header">
+
+      <div>
+        <h2>Create Project</h2>
+        <span>Create a workspace for your tasks and boards</span>
+      </div>
+
+      <button
+        class="dialog-close"
+        (click)="closeProjectModal()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="dialog-content">
+
+      <div class="field">
+
+        <label>Project Name</label>
+
+        <input
+          [(ngModel)]="name"
+          placeholder="Website Redesign"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Description</label>
+
+        <textarea
+          [(ngModel)]="description"
+          placeholder="Describe your project goals..."
+        ></textarea>
+
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        class="btn btn-secondary"
+        (click)="closeProjectModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-primary"
+        (click)="createProject()"
+      >
+        Create Project
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

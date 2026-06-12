@@ -1,0 +1,46 @@
+<div class="auth-page">
+
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Start managing your projects today</p>
+
+    </div>
+
+    <div class="auth-form">
+
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          class="input"
+          [(ngModel)]="email"
+          placeholder="example@example.com">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          class="input"
+          [(ngModel)]="password"
+          placeholder="Choose a password">
+      </div>
+
+      <button
+        class="btn btn-primary auth-button"
+        (click)="register()">
+        Create Account
+      </button>
+
+      <div class="auth-footer">
+        Already have an account?
+        <a routerLink="/login">Sign In</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

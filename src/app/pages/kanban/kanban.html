@@ -1,0 +1,355 @@
+<div class="container-app">
+
+  <!-- Header -->
+  <div class="board-header">
+
+    <div>
+      <h1 class="page-title">Kanban Board</h1>
+      <p class="board-subtitle">
+        Manage tasks and track progress
+      </p>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="openTaskModal()"
+    >
+      + New Task
+    </button>
+
+  </div>
+
+  <!-- Board -->
+  <div class="kanban-board">
+
+    <!-- TODO -->
+    <div class="kanban-column todo-column">
+
+      <div class="column-header">
+        <span>Todo</span>
+        <span class="task-count">{{ todoTasks.length }}</span>
+      </div>
+
+      <div *ngIf="todoTasks.length === 0" class="empty-state">
+        No tasks yet
+      </div>
+
+      <div
+        class="task-list"
+        cdkDropList
+        id="todo"
+        [cdkDropListData]="todoTasks"
+        [cdkDropListConnectedTo]="['progress','done']"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="task-card" *ngFor="let t of todoTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+          <div class="task-title">
+            {{ t.title }}
+          </div>
+
+          <div
+            *ngIf="t.description"
+            class="task-description"
+          >
+            {{ t.description }}
+          </div>
+
+          <div class="task-meta">
+            <span class="badge" [ngClass]="t.priority">
+              {{ t.priority }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- IN PROGRESS -->
+    <div class="kanban-column progress-column">
+
+      <div class="column-header">
+        <span>In Progress</span>
+        <span class="task-count">{{ inProgressTasks.length }}</span>
+      </div>
+
+      <div *ngIf="inProgressTasks.length === 0" class="empty-state">
+        No tasks yet
+      </div>
+
+      <div
+        class="task-list"
+        cdkDropList
+        id="progress"
+        [cdkDropListData]="inProgressTasks"
+        [cdkDropListConnectedTo]="['todo','done']"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="task-card" *ngFor="let t of inProgressTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+          <div class="task-title">
+            {{ t.title }}
+          </div>
+
+          <div
+            *ngIf="t.description"
+            class="task-description"
+          >
+            {{ t.description }}
+          </div>
+
+          <div class="task-meta">
+            <span class="badge" [ngClass]="t.priority">
+              {{ t.priority }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DONE -->
+    <div class="kanban-column done-column">
+
+      <div class="column-header">
+        <span>Done</span>
+        <span class="task-count">{{ doneTasks.length }}</span>
+      </div>
+
+      <div *ngIf="doneTasks.length === 0" class="empty-state">
+        No tasks yet
+      </div>
+
+      <div
+        class="task-list"
+        cdkDropList
+        id="done"
+        [cdkDropListData]="doneTasks"
+        [cdkDropListConnectedTo]="['progress','todo']"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="task-card" *ngFor="let t of doneTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+          <div class="task-title">
+            {{ t.title }}
+          </div>
+
+          <div
+            *ngIf="t.description"
+            class="task-description"
+          >
+            {{ t.description }}
+          </div>
+
+          <div class="task-meta">
+            <span class="badge" [ngClass]="t.priority">
+              {{ t.priority }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  *ngIf="showTaskModal"
+  class="dialog-backdrop"
+>
+
+  <div class="task-dialog">
+
+    <div class="dialog-header">
+
+      <div>
+        <h2>Create Task</h2>
+        <span>Add work to your project</span>
+      </div>
+
+      <button
+        class="dialog-close"
+        (click)="closeTaskModal()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="dialog-content">
+
+      <div class="field">
+        <label>Title</label>
+
+        <input
+          [(ngModel)]="title"
+          placeholder="Implement authentication"
+        >
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+
+        <textarea
+          [(ngModel)]="description"
+          placeholder="Describe the task..."
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label>Priority</label>
+
+        <div class="priority-row">
+
+          <button class="priority low"
+                  [class.active]="priority === 'low'"
+                  (click)="priority = 'low'">
+            Low
+          </button>
+
+          <button class="priority medium"
+                  [class.active]="priority === 'medium'"
+                  (click)="priority = 'medium'">
+            Medium
+          </button>
+
+          <button class="priority high"
+                  [class.active]="priority === 'High'"
+                  (click)="priority = 'High'">
+            High
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        class="btn btn-secondary"
+        (click)="closeTaskModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-primary"
+        (click)="createTask()"
+      >
+        Create Task
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  *ngIf="showEditModal && selectedTask"
+  class="dialog-backdrop"
+>
+
+  <div class="task-dialog">
+
+    <div class="dialog-header">
+
+      <div>
+        <h2>Edit Task</h2>
+        <span>Update task information</span>
+      </div>
+
+      <button
+        class="dialog-close"
+        (click)="closeEditModal()"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div class="dialog-content">
+
+      <div class="field">
+        <label>Title</label>
+
+        <input
+          [(ngModel)]="selectedTask.title"
+        >
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+
+        <textarea
+          [(ngModel)]="selectedTask.description"
+          placeholder="Describe the task..."
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label>Priority</label>
+
+        <div class="priority-row">
+
+          <button
+            class="priority low"
+            [class.active]="selectedTask.priority === 'low'"
+            (click)="selectedTask.priority = 'low'"
+          >
+            Low
+          </button>
+
+          <button
+            class="priority medium"
+            [class.active]="selectedTask.priority === 'medium'"
+            (click)="selectedTask.priority = 'medium'"
+          >
+            Medium
+          </button>
+
+          <button
+            class="priority high"
+            [class.active]="selectedTask.priority === 'high'"
+            (click)="selectedTask.priority = 'high'"
+          >
+            High
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button
+        class="btn btn-danger"
+        (click)="deleteTask()"
+      >
+        Delete
+      </button>
+
+      <div class="footer-actions">
+
+        <button
+          class="btn btn-secondary"
+          (click)="closeEditModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="btn btn-primary"
+          (click)="saveTask()"
+        >
+          Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

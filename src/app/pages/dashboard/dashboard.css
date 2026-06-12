@@ -1,0 +1,141 @@
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15, 23, 42, .65);
+
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.task-dialog {
+  width: 100%;
+  max-width: 750px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.25);
+
+  animation: pop .2s ease;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 28px;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.dialog-header span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.dialog-close {
+  border: none;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+
+  background: #f3f4f6;
+
+  cursor: pointer;
+
+  transition: .15s;
+}
+
+.dialog-close:hover {
+  background: #e5e7eb;
+}
+
+.dialog-content {
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+
+  padding: 14px 16px;
+
+  font-size: 15px;
+
+  transition: .15s;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,.12);
+}
+
+.field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.dialog-footer {
+  padding: 24px 28px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  border-top: 1px solid #ececec;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
