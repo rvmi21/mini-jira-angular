@@ -30,6 +30,7 @@ export class Kanban {
   showTaskModal = false;
   selectedTask: Task | null = null;
   showEditModal = false;
+  dueDate = '';
 
   ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
@@ -55,17 +56,24 @@ export class Kanban {
   createTask() {
     if (!this.title.trim()) return;
 
-    this.taskService.createTask({
+    const task: Task = {
       title: this.title,
       status: 'todo',
       projectId: this.projectId,
       description: this.description,
       priority: this.priority,
       createdAt: new Date()
-    });
+    };
+
+    if (this.dueDate) {
+      task.dueDate = new Date(this.dueDate);
+    }
+
+    this.taskService.createTask(task);
 
     this.title = '';
     this.description = '';
+    this.dueDate = '';
     this.priority = 'low';
 
     this.notification.success('Task saved successfully');
@@ -149,6 +157,18 @@ export class Kanban {
     await this.taskService.deleteTask(this.selectedTask!.id!);
     this.notification.success('Task deleted');
     this.closeEditModal();
+  }
+
+  isOverdue(task: Task): boolean {
+
+    if (!task.dueDate) {
+      return false;
+    }
+
+    return (
+      new Date(task.dueDate) < new Date() &&
+      task.status !== 'done'
+    );
   }
 
 }

@@ -6,4 +6,5 @@ export interface Task {
   status: 'todo' | 'in-progress' | 'done';
   projectId: string;
   createdAt: any;
+  dueDate?: Date;
 }

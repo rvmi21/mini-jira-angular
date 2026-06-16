@@ -1,4 +1,59 @@
-<router-outlet></router-outlet>
+<div *ngIf="!isAuthPage" class="app-shell">
+
+  <header class="app-header">
+
+    <div class="logo">
+      <i class="fa-solid fa-bug"></i>
+      G-RELLO
+    </div>
+
+    <div class="header-actions">
+
+      <button class="header-btn">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+
+      <div class="user-avatar">
+        PP
+      </div>
+
+    </div>
+
+  </header>
+
+  <div class="app-body">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+
+        <p class="sidebar-title">
+          Navigation
+        </p>
+
+        <a routerLink="/dashboard" class="sidebar-link">
+          <i class="fa-solid fa-house"></i>
+          Dashboard
+        </a>
+
+        <a routerLink="/kanban" class="sidebar-link">
+          <i class="fa-solid fa-table-columns"></i>
+          Boards
+        </a>
+
+      </div>
+
+    </aside>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
+
+<router-outlet *ngIf="isAuthPage"></router-outlet>
 
 <app-toast></app-toast>
 

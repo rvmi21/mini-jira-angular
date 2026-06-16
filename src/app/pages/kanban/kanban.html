@@ -1,21 +1,45 @@
 <div class="container-app">
 
   <!-- Header -->
-  <div class="board-header">
+  <div class="page-title-row">
+    <i class="fa-solid fa-table-columns page-icon"></i>
+    <h1 class="page-title">
+      Kanban Board
+    </h1>
+  </div>
 
-    <div>
-      <h1 class="page-title">Kanban Board</h1>
-      <p class="board-subtitle">
-        Manage tasks and track progress
-      </p>
+  <div class="toolbar">
+
+    <div class="toolbar-left">
+
+      <input
+        class="toolbar-search"
+        placeholder="Search tasks..."
+      >
+
     </div>
 
-    <button
-      class="btn btn-primary"
-      (click)="openTaskModal()"
-    >
-      + New Task
-    </button>
+    <div class="toolbar-right">
+
+      <button class="toolbar-btn">
+        <i class="fa-solid fa-filter"></i>
+        Filter
+      </button>
+
+      <button class="toolbar-btn">
+        <i class="fa-solid fa-arrow-up-wide-short"></i>
+        Sort
+      </button>
+
+      <button
+        class="btn btn-primary"
+        (click)="openTaskModal()"
+      >
+        <i class="fa-solid fa-plus"></i>
+        New Task
+      </button>
+
+    </div>
 
   </div>
 
@@ -42,9 +66,32 @@
         [cdkDropListConnectedTo]="['progress','done']"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="task-card" *ngFor="let t of todoTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+        <div class="task-card" [class.task-overdue]="isOverdue(t)" *ngFor="let t of todoTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
           <div class="task-title">
             {{ t.title }}
+          </div>
+
+          <div
+            class="task-meta"
+            *ngIf="t.dueDate"
+          >
+
+            <div
+              class="task-date"
+              [class.overdue]="isOverdue(t)"
+            >
+              <i class="fa-regular fa-calendar"></i>
+
+              {{ t.dueDate | date:'MMM d' }}
+            </div>
+
+            <div
+              *ngIf="isOverdue(t)"
+              class="overdue-badge"
+            >
+              Overdue
+            </div>
+
           </div>
 
           <div
@@ -84,9 +131,32 @@
         [cdkDropListConnectedTo]="['todo','done']"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="task-card" *ngFor="let t of inProgressTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+        <div class="task-card" [class.task-overdue]="isOverdue(t)" *ngFor="let t of inProgressTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
           <div class="task-title">
             {{ t.title }}
+          </div>
+
+          <div
+            class="task-meta"
+            *ngIf="t.dueDate"
+          >
+
+            <div
+              class="task-date"
+              [class.overdue]="isOverdue(t)"
+            >
+              <i class="fa-regular fa-calendar"></i>
+
+              {{ t.dueDate | date:'MMM d' }}
+            </div>
+
+            <div
+              *ngIf="isOverdue(t)"
+              class="overdue-badge"
+            >
+              Overdue
+            </div>
+
           </div>
 
           <div
@@ -126,9 +196,32 @@
         [cdkDropListConnectedTo]="['progress','todo']"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="task-card" *ngFor="let t of doneTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
+        <div class="task-card" [class.task-overdue]="isOverdue(t)" *ngFor="let t of doneTasks" cdkDrag [cdkDragData]="t" (click)="openTask(t)">
           <div class="task-title">
             {{ t.title }}
+          </div>
+
+          <div
+            class="task-meta"
+            *ngIf="t.dueDate"
+          >
+
+            <div
+              class="task-date"
+              [class.overdue]="isOverdue(t)"
+            >
+              <i class="fa-regular fa-calendar"></i>
+
+              {{ t.dueDate | date:'MMM d' }}
+            </div>
+
+            <div
+              *ngIf="isOverdue(t)"
+              class="overdue-badge"
+            >
+              Overdue
+            </div>
+
           </div>
 
           <div
@@ -193,6 +286,15 @@
           [(ngModel)]="description"
           placeholder="Describe the task..."
         ></textarea>
+      </div>
+
+      <div class="field">
+        <label>Due date</label>
+
+        <input
+          type="date"
+          [(ngModel)]="dueDate"
+        >
       </div>
 
       <div class="field">
@@ -285,6 +387,17 @@
           [(ngModel)]="selectedTask.description"
           placeholder="Describe the task..."
         ></textarea>
+      </div>
+
+      <div class="field">
+
+        <label>Due Date</label>
+
+        <input
+          type="date"
+          [(ngModel)]="selectedTask.dueDate"
+        >
+
       </div>
 
       <div class="field">

@@ -49,6 +49,7 @@ export class TaskService {
     await updateDoc(taskRef, {
       title: task.title,
       description: task.description,
+      dueDate: task.dueDate,
       priority: task.priority
     });
   }

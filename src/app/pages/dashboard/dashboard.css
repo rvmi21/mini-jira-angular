@@ -139,3 +139,69 @@
     transform: scale(1);
   }
 }
+
+.projects-card {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 1px 3px rgba(0,0,0,.05);
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table th {
+  text-align: left;
+
+  padding: 16px 20px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #6b7280;
+
+  background: #fafafa;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.projects-table td {
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.projects-table tbody tr {
+  transition: .2s;
+
+  cursor: pointer;
+}
+
+.projects-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.project-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 600;
+
+  color: #111827;
+}
+
+.project-name i {
+  color: #2563eb;
+}
+
+.project-description {
+  color: #6b7280;
+}

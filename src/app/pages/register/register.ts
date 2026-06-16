@@ -14,10 +14,14 @@ export class Register {
 
   email = '';
   password = '';
+  firstName = '';
+  lastName = '';
 
   async register() {
     try {
       const result = await this.authService.register(
+        this.firstName,
+        this.lastName,
         this.email,
         this.password
       );

@@ -1,49 +1,103 @@
 <div class="bg-white rounded-xl shadow-sm border p-4">
 
-  <h2 class="text-lg font-semibold mb-4">Your Projects</h2>
-  <button
-    class="btn btn-primary"
-    (click)="openProjectModal()"
-  >
-    + New Project
-  </button>
-  <table class="table">
+  <div class="page-header">
 
-    <!-- Header -->
-    <thead>
-    <tr class="text-gray-500 text-sm border-b">
-      <th class="py-2">Project Name</th>
-      <th class="py-2">Description</th>
-      <th class="py-2 text-right">Action</th>
-    </tr>
-    </thead>
+    <div class="page-title-row">
 
-    <!-- Body -->
-    <tbody>
+      <i class="fa-solid fa-folder-tree page-icon"></i>
 
-    <tr
-      *ngFor="let project of projects$ | async"
-      class="border-b hover:bg-gray-50 transition cursor-pointer"
-      (click)="openProject(project.id)"
-    >
+      <h1 class="page-title">
+        Projects
+      </h1>
 
-      <td class="py-3 font-medium text-gray-800">
-        {{ project.name }}
-      </td>
+    </div>
 
-      <td class="py-3 text-gray-500 text-sm">
-        {{ project.description }}
-      </td>
+  </div>
 
-      <td class="py-3 text-right">
-        <button class="btn btn-primary">
-          Open →
-        </button>
-      </td>
+  <div class="toolbar">
 
-    </tr>
-    </tbody>
-  </table>
+    <div class="toolbar-left">
+
+      <input
+        class="toolbar-search"
+        placeholder="Search projects..."
+      >
+
+    </div>
+
+    <div class="toolbar-right">
+
+      <button
+        class="btn btn-primary"
+        (click)="openProjectModal()"
+      >
+        <i class="fa-solid fa-plus"></i>
+        New Project
+      </button>
+
+    </div>
+
+  </div>
+  <div class="projects-card">
+
+    <table class="projects-table">
+
+      <thead>
+
+      <tr>
+
+        <th>Project Name</th>
+
+        <th>Description</th>
+
+        <th>Actions</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr
+        *ngFor="let project of projects$ | async"
+        (click)="openProject(project.id)"
+      >
+
+        <td>
+
+          <div class="project-name">
+
+            <i class="fa-solid fa-folder"></i>
+
+            {{ project.name }}
+
+          </div>
+
+        </td>
+
+        <td class="project-description">
+
+          {{ project.description }}
+
+        </td>
+
+        <td>
+
+          <button class="btn btn-primary">
+
+            Open
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
 </div>
 
 <div
