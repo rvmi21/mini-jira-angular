@@ -50,6 +50,8 @@
 
         <th>Description</th>
 
+        <th>Owner</th>
+
         <th>Actions</th>
 
       </tr>
@@ -79,6 +81,12 @@
 
           {{ project.description }}
 
+        </td>
+
+        <td>
+          <div class="member-avatar" *ngIf="ownerMap[project.ownerId]">
+            {{ ownerMap[project.ownerId].firstName[0] }}{{ ownerMap[project.ownerId].lastName[0] }}
+          </div>
         </td>
 
         <td>

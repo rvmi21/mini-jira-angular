@@ -24,11 +24,19 @@ export class ProjectService {
   }
 
   getProjects() {
+
     const q = query(
       this.projectsRef,
-      where('ownerId', '==', this.auth.currentUser?.uid)
+      where(
+        'members',
+        'array-contains',
+        this.auth.currentUser?.uid
+      )
     );
 
-    return collectionData(q, { idField: 'id' }) as Observable<Project[]>;
+    return collectionData(
+      q,
+      { idField: 'id' }
+    ) as Observable<Project[]>;
   }
 }

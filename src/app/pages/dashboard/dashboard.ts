@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth';
 import { ProjectService } from '../../services/project';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import {Firestore, doc, getDoc} from '@angular/fire/firestore';
 
 
 
@@ -19,15 +19,45 @@ export class Dashboard {
   private authService = inject(AuthService);
   private router = inject(Router);
   private projectService = inject(ProjectService);
+  private firestore = inject(Firestore);
   projects$ = this.projectService.getProjects();
   name = '';
   description = '';
   activeProjectId = '';
   showProjectModal = false;
+  ownerMap: { [uid: string]: any } = {};
+
+  ngOnInit() {
+
+    this.projects$.subscribe(projects => {
+      projects.forEach(project => {
+        if (!this.ownerMap[project.ownerId]) {
+          this.loadOwner(project.ownerId);
+        }
+      });
+    });
+
+  }
+
+  async loadOwner(uid: string) {
+
+    const userRef =
+      doc(this.firestore, 'users', uid);
+
+    const snap =
+      await getDoc(userRef);
+
+    if (snap.exists()) {
+
+      this.ownerMap[uid] =
+        snap.data();
+
+    }
+
+  }
 
   async logout() {
     await this.authService.logout();
-
     this.router.navigate(['/login']);
   }
 
@@ -35,7 +65,8 @@ export class Dashboard {
     this.projectService.createProject({
       name: this.name,
       description: this.description,
-      ownerId: '',
+      ownerId: this.authService.currentUser!.uid,
+      members: [this.authService.currentUser!.uid],
       createdAt: new Date()
     });
 

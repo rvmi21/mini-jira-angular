@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ToastComponent} from './shared/toast/toast';
 import {ConfirmationDialogComponent} from './shared/confirmation-dialog/confirmation-dialog';
@@ -18,8 +18,9 @@ import {AuthService} from './services/auth';
 export class App {
 
   isAuthPage = false;
-
   protected title = 'G-RELLO';
+  protected authService = inject(AuthService);
+  showUserMenu = false;
 
   constructor(private router: Router) {
 
@@ -33,5 +34,19 @@ export class App {
           url.includes('/login') ||
           url.includes('/register');
       });
+  }
+
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  closeUserMenu() {
+    this.showUserMenu = false;
+  }
+
+  async logout() {
+    await this.authService.logout();
+    this.router.navigate(['/login']);
+    this.showUserMenu = false;
   }
 }

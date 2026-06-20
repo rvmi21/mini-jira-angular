@@ -1,47 +1,56 @@
 <div class="container-app">
 
-  <!-- Header -->
-  <div class="page-title-row">
-    <i class="fa-solid fa-table-columns page-icon"></i>
-    <h1 class="page-title">
-      Kanban Board
-    </h1>
-  </div>
+  <div class="kanban-header">
 
-  <div class="toolbar">
+      <!-- LEFT: TITLE -->
+      <div class="kanban-title">
+        <i class="fa-solid fa-table-columns"></i>
+        <div>
+          <h1>Kanban Board</h1>
+          <span>Manage tasks and track progress</span>
+        </div>
+      </div>
 
-    <div class="toolbar-left">
+      <!-- CENTER: MEMBERS -->
+      <div class="kanban-members">
 
-      <input
-        class="toolbar-search"
-        placeholder="Search tasks..."
-      >
+        <div class="member-avatar" *ngFor="let m of members">
+          {{ m.firstName[0] }}{{ m.lastName[0] }}
+        </div>
+
+        <button class="member-add" (click)="openMembersModal()">
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
+
+      </div>
+
+      <!-- RIGHT: ACTIONS -->
+      <div class="kanban-actions">
+
+        <div class="search-box">
+          <i class="fa-solid fa-search"></i>
+          <input placeholder="Search tasks..." />
+        </div>
+
+        <button class="action-btn">
+          <i class="fa-solid fa-filter"></i>
+          Filter
+        </button>
+
+        <button class="action-btn">
+          <i class="fa-solid fa-arrow-up-wide-short"></i>
+          Sort
+        </button>
+
+        <button class="btn btn-primary" (click)="openTaskModal()">
+          <i class="fa-solid fa-plus"></i>
+          New Task
+        </button>
+
+      </div>
 
     </div>
 
-    <div class="toolbar-right">
-
-      <button class="toolbar-btn">
-        <i class="fa-solid fa-filter"></i>
-        Filter
-      </button>
-
-      <button class="toolbar-btn">
-        <i class="fa-solid fa-arrow-up-wide-short"></i>
-        Sort
-      </button>
-
-      <button
-        class="btn btn-primary"
-        (click)="openTaskModal()"
-      >
-        <i class="fa-solid fa-plus"></i>
-        New Task
-      </button>
-
-    </div>
-
-  </div>
 
   <!-- Board -->
   <div class="kanban-board">
@@ -460,6 +469,72 @@
         </button>
 
       </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  *ngIf="showMembersModal"
+  class="dialog-backdrop"
+  (click)="closeMembersModal()"
+>
+
+  <div class="task-dialog" (click)="$event.stopPropagation()">
+
+    <div class="dialog-header">
+      <h2>Project Members</h2>
+    </div>
+
+    <div class="dialog-content">
+
+      <!-- list -->
+      <div class="member-row" *ngFor="let m of members">
+
+        <div class="member-info">
+          <div class="avatar">
+            {{ m.firstName[0] }}{{ m.lastName[0] }}
+          </div>
+
+          <div>
+            {{ m.firstName }} {{ m.lastName }}
+          </div>
+        </div>
+
+        <button
+          class="btn btn-secondary"
+          (click)="removeMember(m.uid)"
+        >
+          Remove
+        </button>
+
+      </div>
+
+      <hr>
+
+      <!-- add -->
+      <div class="field">
+        <label>Add by Email</label>
+
+        <input
+          [(ngModel)]="memberEmail"
+          placeholder="user@example.com"
+        >
+      </div>
+
+    </div>
+
+    <div class="dialog-footer">
+
+      <button class="btn btn-secondary" (click)="closeMembersModal()">
+        Close
+      </button>
+
+      <button class="btn btn-primary" (click)="addMember()">
+        Add Member
+      </button>
 
     </div>
 
